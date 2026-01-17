@@ -548,6 +548,9 @@ elif menu == "Peta Persebaran Klaster":
     cluster = MarkerCluster().add_to(m)
 
     for _, row in df_data.iterrows():
+        if pd.isna(row["latitude"]) or pd.isna(row["longitude"]):
+            continue
+
         folium.CircleMarker(
             location=[row["latitude"], row["longitude"]],
             radius=4,
@@ -562,5 +565,3 @@ elif menu == "Peta Persebaran Klaster":
         ).add_to(cluster)
 
     st_folium(m, height=650, use_container_width=True)
-
-    st.markdown('</div>', unsafe_allow_html=True)
